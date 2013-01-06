@@ -5,9 +5,10 @@ local type = type
 local table = table
 local math = math
 local helpers = require('blingbling.helpers')
+local awful = require("awful")
 local util = require("awful.util")
-local default = require("awful.widget.layout.default")
-local margins = awful.widget.layout.margins
+--local default = require("awful.widget.layout.default")
+local margins = awful.layout.suit.margins
 ---Array Layout
 module("blingbling.layout.array")
 

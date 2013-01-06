@@ -7,7 +7,8 @@ local table = table
 local type=type
 local cairo = require "oocairo"
 local capi = { image = image, widget = widget, timer=timer }
-local layout = require("awful.widget.layout")
+local wibox = require("wibox")
+local layout = wibox.layout
 ---Not ready for now --
 module("blingbling.clock")
 

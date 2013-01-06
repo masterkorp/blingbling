@@ -33,7 +33,8 @@ local capi =
 }
 local util = require("awful.util")
 local tags = require("awful.tag")
-local layout = require("awful.widget.layout")
+local wibox = require("wibox")
+local layout = wibox.layout
 local awbeautiful = require("beautiful")
 local tonumber = tonumber
 local helpers=require("blingbling.helpers")

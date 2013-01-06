@@ -7,7 +7,8 @@ local table =table
 local type=type
 local cairo = require("oocairo")
 local capi = { image = image, widget = widget }
-local layout = require("awful.widget.layout")
+local wibox = require("wibox")
+local layout = wibox.layout
 
 ---A progressbar widget which looks like a cylinder
 module("blingbling.progress_bar")

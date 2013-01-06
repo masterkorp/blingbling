@@ -1,19 +1,22 @@
+
 local capi = { keygrabber = keygrabber, mouse=mouse, screen = screen, image = image} 
 local util = require('awful.util') 
 local button = require('awful.button') 
 local table = table
 local type = type
 local os = require('os')
-local wibox = wibox
-local widget = widget
-local layout = require('awful.widget.layout')
+
+local awful = require("awful")
+local wibox = require("wibox")
+local widget = wibox.widget
+local layout = wibox.layout
 local string =string
 local pairs = pairs
 local ipairs = ipairs
 local tonumber = tonumber
 local helpers = require('blingbling.helpers')
 local blingbling = { layout = require('blingbling.layout'), menu = require("blingbling.menu") }
-local margins = awful.widget.layout.margins
+local margins = awful.layout.suit.margins
 local setmetatable = setmetatable
 local beautiful = require('beautiful')
 ---A calendar widget
@@ -842,10 +845,10 @@ function new(args)
   local calendar={}
   data[calendar]={}
   if  args == nil or args.type == "textbox" then
-    calendar.widget=widget({ type = "textbox" })
+    calendar.widget=widget.textbox()
     calendar.widget.text = args.text or "Calendar"
   elseif args.type == "imagebox" then
-    calendar.widget=widget({ type = "imagebox" })
+    calendar.widget=widget.imagebox()
     calendar.widget.image=capi.image(args.image)
   end
   

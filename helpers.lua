@@ -1,13 +1,13 @@
 local naughty= require("naughty")
-local cairo=require("oocairo")
-local string = require("string")
-local os = require('os')
+local string = string
+local os = os
 local math = math
 local table = table
----Functions used in blingbling.
-module("blingbling.helpers")
+local lgi = require("cgi")
+local cairo = lgi.cairo
 
-widget_index={}
+--module
+local helpers = {}
 
 ---Display values of variables in an awesome popup.
 --Each variables in vars is separated by a "|"
@@ -67,7 +67,7 @@ function split(str, pat)
 end
 
 ---Draw tiles in a cairo context.
---@param cairo_context a cairo context already initialised with oocairo.context_create( )
+--@param cairo_context a cairo context already initialised with cairo.Context.create()
 --@param height the height of the surface on which we want tiles
 --@param v_margin value used to define top margin and/or bottom margin (tiles are not drawn on the margins)
 --@param width the width of the surface on which we want tiles
@@ -121,7 +121,7 @@ function draw_background_tiles(cairo_context, height, v_margin , width, h_margin
 end
 
 ---Draw text on a rectangle which width and height depend on the text width and height.
---@param cairo_context a cairo context already initialised with oocairo.context_create( )
+--@param cairo_context a cairo context already initialised with cairo.Context.create()
 --@param text the text to display
 --@param x the x coordinate of the left of the text 
 --@param y the y coordinate of the bottom of the text
@@ -172,7 +172,7 @@ end
 
 ---Drawn one foreground arrow with a background arrow that depend on a value.
 --If the value is egal to 0 then the foreground arrow is not drawn.
---@param cairo_context a cairo context already initialised with oocairo.context_create( )
+--@param cairo_context a cairo context already initialised with cairo.Context.create()
 --@param x the x coordinate in the cairo context where the arrow start
 --@param y_bottom the bottom corrdinate of the arrows
 --@param y_top the top coordinate of the arrows
@@ -225,7 +225,7 @@ function draw_up_down_arrows(cairo_context,x,y_bottom,y_top,value,background_arr
 end
 
 ---Draw a vertical bar with gradient color, so it looks like a cylinder, and it's height depends on a value. 
---@param cairo_context a cairo context already initialised with oocairo.context_create( )
+--@param cairo_context a cairo context already initialised with cairo.Context.create()
 --@param h_margin the left and right margin of the bar in the cairo_context 
 --@param v_margin the top and bottom margin of the bar in the cairo_context
 --@param width the width used to display the left margin, the bar and the right margin
@@ -269,7 +269,7 @@ function draw_vertical_bar(cairo_context,h_margin,v_margin, width,height, repres
   end  
 end
 ---Draw an horizontal bar with gradient color, so it looks like a cylinder, and it's height depends on a value. 
---@param cairo_context a cairo context already initialised with oocairo.context_create( )
+--@param cairo_context a cairo context already initialised with cairo.Context.create()
 --@param h_margin the left and right margin of the bar in the cairo_context 
 --@param v_margin the top and bottom margin of the bar in the cairo_context
 --@param width the width used to display the left margin, the bar and the right margin
@@ -314,7 +314,7 @@ function draw_horizontal_bar( cairo_context,h_margin,v_margin, width, height, re
 end
 
 ---Draw a rectangle width rounded corners.
---@param cairo_context a cairo context already initialised with oocairo.context_create( )
+--@param cairo_context a cairo context already initialised with cairo.Context.create()
 --@param x the x coordinate of the left top corner
 --@param y the y corrdinate of the left top corner
 --@param width the width of the rectangle
@@ -351,7 +351,7 @@ function draw_rounded_corners_rectangle(cairo_context,x,y,width, height, color, 
 end
 
 ---Set a rectangle width rounded corners that define the area to draw.
---@param cairo_context a cairo context already initialised with oocairo.context_create( )
+--@param cairo_context a cairo context already initialised with cairo.Context.create()
 --@param x the x coordinate of the left top corner
 --@param y the y corrdinate of the left top corner
 --@param width the width of the rectangle
@@ -386,7 +386,7 @@ end
 
 
 ---Draw a foreground rounded corners rectangle which width depends on a value, and a background rounded corners rectangle.
---@param cairo_context a cairo context already initialised with oocairo.context_create( )
+--@param cairo_context a cairo context already initialised with cairo.Context.create()
 --@param x the x coordinate of the left top corner
 --@param y the y corrdinate of the left top corner
 --@param width the width of the background rectangle and the maximal width of th foreground rectangle
@@ -499,7 +499,7 @@ function draw_rounded_corners_horizontal_graph(cairo_context,x,y,width, height, 
 end
 
 ---Draw a foreground rounded corners rectangle which height depends on a value, and a background rounded corners rectangle.
---@param cairo_context a cairo context already initialised with oocairo.context_create( )
+--@param cairo_context a cairo context already initialised with cairo.Context.create()
 --@param x the x coordinate of the left top corner
 --@param y the y corrdinate of the left top corner
 --@param width the width of the background and the foreground rectangles
@@ -647,7 +647,7 @@ end
 
 ---Generate a text in front of a centered rectangle with rounded corners (or not).
 --It returns a table ={ width = the width of the image, height = the height of the image, raw_image= the image in a raw format}
---@param cairo_context a cairo context already initialised with oocairo.context_create( )
+--@param cairo_context a cairo context already initialised with cairo.Context.create()
 --@param padding the left/right/top/bottom padding used to center the text in the background rectangle
 --@param background_color a string "#rrggbb" or "#rrggbbaa" for the color of the background rectangle
 --@param text_color a string "#rrggbb" or "#rrggbbaa" for the color of the text
@@ -785,3 +785,5 @@ function get_ISO8601_weeks_number_of_month(month,year)
   local weeks ={ current_week, current_week +1, current_week +2, current_week + 3, current_week + 4, current_week +5}
   return weeks
 end
+
+return helpers

@@ -29,7 +29,7 @@ function shutdownmenu(button_image, accept_image, cancel_image)
 
 
 
-  shutdownbutton = awful.widget.launcher({ image =capi.image(button_image),
+  shutdownbutton = awful.widget.launcher({ image = button_image,
                                              menu = shutdownmenu })
   return shutdownbutton
 end

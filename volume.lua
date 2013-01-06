@@ -7,7 +7,9 @@ local math = math
 local type=type
 local cairo = require("oocairo")
 local capi = { image = image, widget = widget, timer = timer }
-local layout = require("awful.widget.layout")
+local wibox = require("wibox");
+local layout = wibox.layout
+
 local string = require("string")
 ---A graphical widget dedicated to the sound on your system.
 module("blingbling.volume")

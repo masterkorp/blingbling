@@ -11,7 +11,8 @@ local tonumber=tonumber
 local type=type
 local cairo = require "oocairo"
 local capi = { image = image, widget = widget, timer = timer }
-local layout = require("awful.widget.layout")
+local wibox = require("wibox");
+local layout = wibox.layout
  
 ---Mpd widget that use mpd vizualiser functionality.
 module("blingbling.mpd_visualizer")
