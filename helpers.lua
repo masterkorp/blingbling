@@ -135,9 +135,10 @@ function helpers.draw_text_and_background(cairo_context, text, x, y, background_
     --Text background
     --TODO: cairo text_extents will dump lua vm
     --helpers.dbg({ text, text_color, tostring(cairo_context) })
+    
     --ext=cairo_context:text_extents(text)
-    --x_modif = 0
-    --y_modif = 0
+    x_modif = 0
+    y_modif = 0
     
     --if show_text_centered_on_x == true then
     --  x_modif = ((ext.width + ext.x_bearing) / 2) + ext.x_bearing / 2 
@@ -161,15 +162,16 @@ function helpers.draw_text_and_background(cairo_context, text, x, y, background_
     --  end
     --end
     --cairo_context:rectangle(x + ext.x_bearing - x_modif,y + ext.y_bearing - y_modif,ext.width, ext.height)
-    --r,g,b,a=helpers.hexadecimal_to_rgba_percent(background_text_color)
-    --cairo_context:set_source_rgba(r,g,b,a)
-    --cairo_context:fill()
+
+    r,g,b,a=helpers.hexadecimal_to_rgba_percent(background_text_color)
+    cairo_context:set_source_rgba(r,g,b,a)
+    cairo_context:fill()
     ----Text
-    --cairo_context:new_path()
-    --cairo_context:move_to(x-x_modif,y-y_modif)
-    --r,g,b,a=helpers.hexadecimal_to_rgba_percent(text_color)
-    --cairo_context:set_source_rgba(r, g, b, a)
-    --cairo_context:show_text(text)
+    cairo_context:new_path()
+    cairo_context:move_to(x-x_modif,y-y_modif)
+    r,g,b,a=helpers.hexadecimal_to_rgba_percent(text_color)
+    cairo_context:set_source_rgba(r, g, b, a)
+    cairo_context:show_text(text)
 end
 
 ---Drawn one foreground arrow with a background arrow that depend on a value.

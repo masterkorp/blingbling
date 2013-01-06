@@ -281,8 +281,8 @@ function classical_graph.draw(graph, wibox, cr, width, height)
 
         helpers.draw_text_and_background(graph_context, 
             text, 
-            h_margin + rounded_size * less_value, 
-            data[graph].height/2 , 
+            h_margin + rounded_size * less_value, --x
+            data[graph].height/2 , --y
             data[graph].background_text_color, 
             data[graph].text_color,
             false,
