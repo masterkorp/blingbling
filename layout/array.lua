@@ -7,10 +7,10 @@ local math = math
 local helpers = require('blingbling.helpers')
 local awful = require("awful")
 local util = require("awful.util")
---local default = require("awful.widget.layout.default")
-local margins = awful.layout.suit.margins
+local margins = require("wibox.layout.margin")
+
 ---Array Layout
-module("blingbling.layout.array")
+local array = {}
 
 ---Global layout for your table
 --@class function
@@ -24,7 +24,7 @@ module("blingbling.layout.array")
 --     <ul><li>blingbling.layout.array.leftright : like leftright layout for awesome</li>
 --     <li>blingbling.layout.array.rightleft : like rightleft layout for awesome</li>
 --     <li> blingbling.layout.array.center : all line width is used and each widget is centered. (This layout check bottom and top margins of your widgets)</li></ul>
-function line(direction, bounds, widgets, screen)
+function array:line(direction, bounds, widgets, screen)
   local geometries = { }
   local initial_width = bounds.width 
   local initial_height = bounds.height
@@ -89,14 +89,15 @@ function line(direction, bounds, widgets, screen)
   return geometries
 end
 
-function line_leftright( ... )
-  return line("leftright",  ...)
+function array:line_leftright( ... )
+  return self:line("leftright",  ...)
 end
 
-function line_rightleft(...)
-  return line("rightleft", ...)
+function array:line_rightleft(...)
+  return self:line("rightleft", ...)
 end
-function line_center(bounds, widgets, screen)
+
+function array:line_center(bounds, widgets, screen)
   -- we are only interested in tables and widgets
   local keys = util.table.keys_filter(widgets, "table", "widget")
   --Check How many widgets we have:
@@ -224,7 +225,7 @@ function line_center(bounds, widgets, screen)
    return geometries
 end
 
-function stack_lines(bounds, widgets, screen)
+function array:stack_lines(bounds, widgets, screen)
   local geometries = { }
   local x = 0
   local y = 0
@@ -252,5 +253,4 @@ function stack_lines(bounds, widgets, screen)
   geometries.free.width = 0
   geometries.free.height = 0
   return geometries
-  
 end

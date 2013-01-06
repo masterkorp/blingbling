@@ -133,41 +133,43 @@ end
 --@param show_text_on_bottom_of_y a boolean value not mandatory (false by default) if true, y parameter is the top of the text
 function helpers.draw_text_and_background(cairo_context, text, x, y, background_text_color, text_color, show_text_centered_on_x, show_text_centered_on_y, show_text_on_left_of_x, show_text_on_bottom_of_y)
     --Text background
-    ext=cairo_context:text_extents(text)
-    x_modif = 0
-    y_modif = 0
+    --TODO: cairo text_extents will dump lua vm
+    --helpers.dbg({ text, text_color, tostring(cairo_context) })
+    --ext=cairo_context:text_extents(text)
+    --x_modif = 0
+    --y_modif = 0
     
-    if show_text_centered_on_x == true then
-      x_modif = ((ext.width + ext.x_bearing) / 2) + ext.x_bearing / 2 
-      show_text_on_left_of_x = false
-    else
-      if show_text_on_left_of_x == true then
-        x_modif = ext.width + 2 *ext.x_bearing     
-      else 
-        x_modif = x_modif
-      end
-    end
-    
-    if show_text_centered_on_y == true then
-      y_modif = ((ext.height +ext.y_bearing)/2 ) + ext.y_bearing / 2
-      show_text_on_left_of_y = false
-    else
-      if show_text_on_bottom_of_y == true then
-        y_modif = ext.height + 2 *ext.y_bearing     
-      else 
-        y_modif = y_modif
-      end
-    end
-    cairo_context:rectangle(x + ext.x_bearing - x_modif,y + ext.y_bearing - y_modif,ext.width, ext.height)
-    r,g,b,a=hexadecimal_to_rgba_percent(background_text_color)
-    cairo_context:set_source_rgba(r,g,b,a)
-    cairo_context:fill()
-    --Text
-    cairo_context:new_path()
-    cairo_context:move_to(x-x_modif,y-y_modif)
-    r,g,b,a=hexadecimal_to_rgba_percent(text_color)
-    cairo_context:set_source_rgba(r, g, b, a)
-    cairo_context:show_text(text)
+    --if show_text_centered_on_x == true then
+    --  x_modif = ((ext.width + ext.x_bearing) / 2) + ext.x_bearing / 2 
+    --  show_text_on_left_of_x = false
+    --else
+    --  if show_text_on_left_of_x == true then
+    --    x_modif = ext.width + 2 *ext.x_bearing     
+    --  else 
+    --    x_modif = x_modif
+    --  end
+    --end
+    --
+    --if show_text_centered_on_y == true then
+    --  y_modif = ((ext.height +ext.y_bearing)/2 ) + ext.y_bearing / 2
+    --  show_text_on_left_of_y = false
+    --else
+    --  if show_text_on_bottom_of_y == true then
+    --    y_modif = ext.height + 2 *ext.y_bearing     
+    --  else 
+    --    y_modif = y_modif
+    --  end
+    --end
+    --cairo_context:rectangle(x + ext.x_bearing - x_modif,y + ext.y_bearing - y_modif,ext.width, ext.height)
+    --r,g,b,a=helpers.hexadecimal_to_rgba_percent(background_text_color)
+    --cairo_context:set_source_rgba(r,g,b,a)
+    --cairo_context:fill()
+    ----Text
+    --cairo_context:new_path()
+    --cairo_context:move_to(x-x_modif,y-y_modif)
+    --r,g,b,a=helpers.hexadecimal_to_rgba_percent(text_color)
+    --cairo_context:set_source_rgba(r, g, b, a)
+    --cairo_context:show_text(text)
 end
 
 ---Drawn one foreground arrow with a background arrow that depend on a value.
@@ -195,7 +197,7 @@ function helpers.draw_up_down_arrows(cairo_context,x,y_bottom,y_top,value,backgr
     cairo_context:line_to(x-(3*invert), y_bottom)
     cairo_context:line_to(x,y_bottom)
     cairo_context:close_path()
-    r,g,b,a = hexadecimal_to_rgba_percent(background_arrow_color)
+    r,g,b,a = helpers.hexadecimal_to_rgba_percent(background_arrow_color)
     cairo_context:set_source_rgba(r, g, b, a)
     cairo_context:fill()
     --Draw the arrow if value is > 0
@@ -207,7 +209,7 @@ function helpers.draw_up_down_arrows(cairo_context,x,y_bottom,y_top,value,backgr
       cairo_context:line_to(x-(3*invert), y_bottom)
       cairo_context:line_to(x,y_bottom)
       cairo_context:close_path()
-      r,g,b,a = hexadecimal_to_rgba_percent(arrow_color)
+      r,g,b,a = helpers.hexadecimal_to_rgba_percent(arrow_color)
       cairo_context:set_source_rgba(r, g, b, a)
       cairo_context:fill()
       cairo_context:move_to(x,y_bottom)
@@ -217,7 +219,7 @@ function helpers.draw_up_down_arrows(cairo_context,x,y_bottom,y_top,value,backgr
       cairo_context:line_to(x-(3*invert), y_bottom)
       cairo_context:line_to(x,y_bottom)
       cairo_context:close_path()
-      r,g,b,a = hexadecimal_to_rgba_percent(arrow_line_color)
+      r,g,b,a = helpers.hexadecimal_to_rgba_percent(arrow_line_color)
       cairo_context:set_source_rgba(r, g, b, a)
       cairo_context:set_line_width(1)
       cairo_context:stroke()
@@ -237,9 +239,9 @@ function helpers.draw_vertical_bar(cairo_context,h_margin,v_margin, width,height
   bar_height=height - 2*v_margin
   y=v_margin 
   if represent["background_bar_color"] == nil then
-    r,g,b,a = hexadecimal_to_rgba_percent("#000000")
+    r,g,b,a = helpers.hexadecimal_to_rgba_percent("#000000")
   else
-    r,g,b,a = hexadecimal_to_rgba_percent(represent["background_bar_color"])
+    r,g,b,a = helpers.hexadecimal_to_rgba_percent(represent["background_bar_color"])
   end
 
   cairo_context:rectangle(x,y,bar_width ,bar_height)
@@ -259,7 +261,7 @@ function helpers.draw_vertical_bar(cairo_context,h_margin,v_margin, width,height
       y=height - (bar_height*represent["value"] + v_margin )
     end
     cairo_context:rectangle(x,y,bar_width,bar_height*represent["value"])
-    r,g,b,a = hexadecimal_to_rgba_percent(represent["color"])
+    r,g,b,a = helpers.hexadecimal_to_rgba_percent(represent["color"])
     gradient=cairo.Pattern.create_linear(0, height/2,width, height/2)
     gradient:add_color_stop_rgba(0, r, g, b, 0.1)
     gradient:add_color_stop_rgba(0.5, r, g, b, 1)
@@ -282,9 +284,9 @@ function helpers.draw_horizontal_bar( cairo_context,h_margin,v_margin, width, he
   bar_height=height - 2*v_margin
   y=v_margin 
   if represent["background_bar_color"] == nil then
-    r,g,b,a = hexadecimal_to_rgba_percent("#000000")
+    r,g,b,a = helpers.hexadecimal_to_rgba_percent("#000000")
   else
-    r,g,b,a = hexadecimal_to_rgba_percent(represent["background_bar_color"])
+    r,g,b,a = helpers.hexadecimal_to_rgba_percent(represent["background_bar_color"])
   end
   cairo_context:rectangle(x,y,bar_width,bar_height)
   gradient=cairo.Pattern.create_linear( width /2,v_margin , width/2, height - v_margin)
@@ -303,7 +305,7 @@ function helpers.draw_horizontal_bar( cairo_context,h_margin,v_margin, width, he
       x=h_margin
     end
     cairo_context:rectangle(x,y,bar_width*represent["value"],bar_height)
-    r,g,b,a = hexadecimal_to_rgba_percent(represent["color"])
+    r,g,b,a = helpers.hexadecimal_to_rgba_percent(represent["color"])
     gradient=cairo.Pattern.create_linear(width /2,0 , width/2, height)
     gradient:add_color_stop_rgba(0, r, g, b, 0.1)
     gradient:add_color_stop_rgba(0.5, r, g, b, 1)
@@ -334,8 +336,8 @@ function helpers.draw_rounded_corners_rectangle(cairo_context,x,y,width, height,
     radius=0.5 * height
   end
 
-  PI = 2*math.asin(1)
-  r,g,b,a=hexadecimal_to_rgba_percent(color)
+  local PI = 2*math.asin(1)
+  local r,g,b,a=helpers.hexadecimal_to_rgba_percent(color)
   cairo_context:set_source_rgba(r,g,b,a)
   --top left corner
   cairo_context:arc(x + radius*rounded_size,y + radius*rounded_size, radius*rounded_size,PI, PI * 1.5)
@@ -347,7 +349,6 @@ function helpers.draw_rounded_corners_rectangle(cairo_context,x,y,width, height,
   cairo_context:arc(x + radius*rounded_size,height -  radius*rounded_size, radius*rounded_size,PI*0.5, PI * 1)
   cairo_context:close_path()
   cairo_context:fill()
-
 end
 
 ---Set a rectangle width rounded corners that define the area to draw.
@@ -411,7 +412,7 @@ function helpers.draw_rounded_corners_horizontal_graph(cairo_context,x,y,width, 
 
   PI = 2*math.asin(1)
   --draw the background
-  r,g,b,a=hexadecimal_to_rgba_percent(background_color)
+  r,g,b,a=helpers.hexadecimal_to_rgba_percent(background_color)
   cairo_context:set_source_rgba(r,g,b,a)
   --top left corner
   cairo_context:arc(x + radius*rounded_size,y + radius*rounded_size, radius*rounded_size,PI, PI * 1.5)
@@ -441,7 +442,7 @@ function helpers.draw_rounded_corners_horizontal_graph(cairo_context,x,y,width, 
   limit_2 = (width -(radius * rounded_size)) / width
   limit_1 = radius* rounded_size /width
 
-  r,g,b,a=hexadecimal_to_rgba_percent(graph_color)
+  r,g,b,a=helpers.hexadecimal_to_rgba_percent(graph_color)
   cairo_context:set_source_rgba(r,g,b,a)
  
   if value <= 1 and value > limit_2 then
@@ -468,7 +469,7 @@ function helpers.draw_rounded_corners_horizontal_graph(cairo_context,x,y,width, 
     cairo_context:fill()
   end
   if graph_line_color then
-    r,g,b,a=hexadecimal_to_rgba_percent(graph_line_color)
+    r,g,b,a=helpers.hexadecimal_to_rgba_percent(graph_line_color)
     cairo_context:set_source_rgba(r,g,b,a)
     cairo_context:set_line_width(1)
 
@@ -517,7 +518,7 @@ function helpers.draw_rounded_corners_vertical_graph(cairo_context,x,y,width, he
   local y = y
   if rounded_size == nil or rounded_size == 0 then
     --draw the background:
-    r,g,b,a=hexadecimal_to_rgba_percent(background_color)
+    r,g,b,a=helpers.hexadecimal_to_rgba_percent(background_color)
     cairo_context:set_source_rgba(r,g,b,a)
     cairo_context:move_to(x,y)
     cairo_context:line_to(x,height)
@@ -526,7 +527,7 @@ function helpers.draw_rounded_corners_vertical_graph(cairo_context,x,y,width, he
     cairo_context:close_path()
     cairo_context:fill()
     --draw the graph:
-    r,g,b,a=hexadecimal_to_rgba_percent(graph_color)
+    r,g,b,a=helpers.hexadecimal_to_rgba_percent(graph_color)
     cairo_context:set_source_rgba(r,g,b,a)
     cairo_context:move_to(x,height)
     cairo_context:line_to(x, height -((height -y)* value_to_represent)  )
@@ -535,7 +536,7 @@ function helpers.draw_rounded_corners_vertical_graph(cairo_context,x,y,width, he
     cairo_context:close_path()
     cairo_context:fill()
     if graph_line_color then
-      r,g,b,a=hexadecimal_to_rgba_percent(graph_line_color)
+      r,g,b,a=helpers.hexadecimal_to_rgba_percent(graph_line_color)
       cairo_context:set_source_rgba(r,g,b,a)
       cairo_context:move_to(x,height)
       cairo_context:line_to(x,height -((height -y)* value_to_represent) )
@@ -555,7 +556,7 @@ function helpers.draw_rounded_corners_vertical_graph(cairo_context,x,y,width, he
 
     PI = 2*math.asin(1)
     --draw the background
-    r,g,b,a=hexadecimal_to_rgba_percent(background_color)
+    r,g,b,a=helpers.hexadecimal_to_rgba_percent(background_color)
     cairo_context:set_source_rgba(r,g,b,a)
     --top left corner
     cairo_context:arc(x + radius*rounded_size,y + radius*rounded_size, radius*rounded_size,PI, PI * 1.5)
@@ -587,7 +588,7 @@ function helpers.draw_rounded_corners_vertical_graph(cairo_context,x,y,width, he
     limit_2 = (height -(radius * rounded_size)) / height
     limit_1 = radius* rounded_size /height
     --dbg({value, limit_2, limit_1})
-    r,g,b,a=hexadecimal_to_rgba_percent(graph_color)
+    r,g,b,a=helpers.hexadecimal_to_rgba_percent(graph_color)
     cairo_context:set_source_rgba(r,g,b,a)
  
     if value <= 1 and value > limit_2 then
@@ -615,7 +616,7 @@ function helpers.draw_rounded_corners_vertical_graph(cairo_context,x,y,width, he
       cairo_context:fill()
     end
     if graph_line_color then
-      r,g,b,a=hexadecimal_to_rgba_percent(graph_line_color)
+      r,g,b,a=helpers.hexadecimal_to_rgba_percent(graph_line_color)
       cairo_context:set_source_rgba(r,g,b,a)
       cairo_context:set_line_width(1)
       if value <= 1 and value > limit_2 then
@@ -675,7 +676,7 @@ function helpers.generate_rounded_rectangle_with_text_in_image(text, padding, ba
   
   --draw the text
   cr:move_to(padding, data.height - padding)
-  r,g,b,a=hexadecimal_to_rgba_percent(text_color)
+  r,g,b,a=helpers.hexadecimal_to_rgba_percent(text_color)
   cr:set_font_size(font_size)
   cr:set_source_rgba(r,g,b,a)
   cr:show_text(text)

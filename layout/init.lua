@@ -2,7 +2,10 @@ local setmetatable = setmetatable
 local require = require
 
 -- Widget layouts
-module("blingbling.layout")
+return {
+    margins = setmetatable({}, { __mode = 'k' }),
+    array = require("blingbling.layout.array")
+}
 
 --- Widgets margins.
 -- <p>In this table you can set the margin you want the layout to use when
@@ -14,7 +17,3 @@ module("blingbling.layout")
 -- </p>
 -- @name margins
 -- @class table
-margins = setmetatable({}, { __mode = 'k' })
-
-require("blingbling.layout.array")
-
