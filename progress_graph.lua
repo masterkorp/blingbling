@@ -128,9 +128,7 @@ local data = setmetatable({}, { __mode = "k" })
 
 local properties = { "width", "height", "v_margin", "h_margin", "background_color","rounded_size", "filled", "filled_color", "tiles", "tiles_color", "graph_color", "graph_line_color","show_text", "text_color", "background_text_color" ,"label", "font_size","horizontal"}
 
-function progress_graph.draw(graph, wibox, cr, width, height)
-    --local p_graph_surface=cairo.image_surface_create("argb32",data[p_graph].width, data[p_graph].height)
-    --local p_graph_context = cairo.context_create(p_graph_surface)
+function progress_graph.draw(p_graph, wibox, cr, width, height)
     local p_graph_context = cr;
 
     local v_margin =  2 
