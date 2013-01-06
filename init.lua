@@ -1,6 +1,7 @@
 --for lua 5.2
 return {
-    helpers = require("blingbling.helpers")
+    helpers = require("blingbling.helpers"),
+    classical_graph = require("blingbling.classical_graph")
 }
 
 --require("blingbling.classical_graph")

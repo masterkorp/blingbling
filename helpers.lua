@@ -3,7 +3,7 @@ local string = string
 local os = os
 local math = math
 local table = table
-local lgi = require("cgi")
+local lgi = require("lgi")
 local cairo = lgi.cairo
 
 --module
@@ -243,7 +243,7 @@ function draw_vertical_bar(cairo_context,h_margin,v_margin, width,height, repres
   end
 
   cairo_context:rectangle(x,y,bar_width ,bar_height)
-  gradient=cairo.pattern_create_linear(h_margin, height/2, width-h_margin, height/2)
+  gradient=cairo.Pattern.create_linear(h_margin, height/2, width-h_margin, height/2)
   gradient:add_color_stop_rgba(0, r, g, b, 0.5)
   gradient:add_color_stop_rgba(0.5, 1, 1, 1, 0.5)
   gradient:add_color_stop_rgba(1, r, g, b, 0.5)
@@ -260,7 +260,7 @@ function draw_vertical_bar(cairo_context,h_margin,v_margin, width,height, repres
     end
     cairo_context:rectangle(x,y,bar_width,bar_height*represent["value"])
     r,g,b,a = hexadecimal_to_rgba_percent(represent["color"])
-    gradient=cairo.pattern_create_linear(0, height/2,width, height/2)
+    gradient=cairo.Pattern.create_linear(0, height/2,width, height/2)
     gradient:add_color_stop_rgba(0, r, g, b, 0.1)
     gradient:add_color_stop_rgba(0.5, r, g, b, 1)
     gradient:add_color_stop_rgba(1, r, g, b, 0.1)
@@ -287,7 +287,7 @@ function draw_horizontal_bar( cairo_context,h_margin,v_margin, width, height, re
     r,g,b,a = hexadecimal_to_rgba_percent(represent["background_bar_color"])
   end
   cairo_context:rectangle(x,y,bar_width,bar_height)
-  gradient=cairo.pattern_create_linear( width /2,v_margin , width/2, height - v_margin)
+  gradient=cairo.Pattern.create_linear( width /2,v_margin , width/2, height - v_margin)
   gradient:add_color_stop_rgba(0, r, g, b, 0.5)
   gradient:add_color_stop_rgba(0.5, 1, 1, 1, 0.5)
   gradient:add_color_stop_rgba(1, r, g, b, 0.5)
@@ -304,7 +304,7 @@ function draw_horizontal_bar( cairo_context,h_margin,v_margin, width, height, re
     end
     cairo_context:rectangle(x,y,bar_width*represent["value"],bar_height)
     r,g,b,a = hexadecimal_to_rgba_percent(represent["color"])
-    gradient=cairo.pattern_create_linear(width /2,0 , width/2, height)
+    gradient=cairo.Pattern.create_linear(width /2,0 , width/2, height)
     gradient:add_color_stop_rgba(0, r, g, b, 0.1)
     gradient:add_color_stop_rgba(0.5, r, g, b, 1)
     gradient:add_color_stop_rgba(1, r, g, b, 0.1)
@@ -657,8 +657,8 @@ function generate_rounded_rectangle_with_text_in_image(text, padding, background
   local data={}
   local padding = padding or 2
   --find the height and width of the image:
-  local cairo_surface=cairo.image_surface_create("argb32",20, 20)
-  local cr = cairo.context_create(cairo_surface)
+  local cairo_surface=cairo.ImageSurface.create("argb32",20, 20)
+  local cr = cairo.Context.create(cairo_surface)
   cr:set_font_size(font_size)
   local ext = cr:text_extents(text)
   data.height = font_size + 2* padding
@@ -667,8 +667,8 @@ function generate_rounded_rectangle_with_text_in_image(text, padding, background
   --recreate the cairo context with good width and height:
   cairo_surface= nil
   cr=nil
-  cairo_surface=cairo.image_surface_create("argb32",data.width, data.height)
-  cr = cairo.context_create(cairo_surface)
+  cairo_surface=cairo.ImageSurface.create("argb32",data.width, data.height)
+  cr = cairo.Context.create(cairo_surface)
 
   --draw the background
   draw_rounded_corners_rectangle(cr,0,0,data.width, data.height, background_color, rounded_size)
