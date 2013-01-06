@@ -12,7 +12,7 @@ local helpers = {}
 ---Display values of variables in an awesome popup.
 --Each variables in vars is separated by a "|"
 --@param vars a table of variable
-function dbg(vars)
+function helpers.dbg(vars)
   local text = ""
   for i=1, #vars do text = text .. vars[i] .. " | " end
   naughty.notify({ text = text, timeout = 15 })
@@ -22,7 +22,7 @@ end
 --It convert a string variable "#rrggbb" or "#rrggbbaa" (with r,g,b and a which are hexadecimal value) to r, g, b a=1 or r,g,b,a (with r,g,b,a floated value from 0 to 1.
 --The function returns 4 variables.
 --@param my_color a string "#rrggbb" or "#rrggbbaa"
-function hexadecimal_to_rgba_percent(my_color)
+function helpers.hexadecimal_to_rgba_percent(my_color)
   --check if color is a valid hex color else return white
   if string.find(my_color,"#[0-f][0-f][0-f][0-f][0-f]") then
   --delete #
@@ -47,7 +47,7 @@ end
 ---Split string in different parts which are returned in a table. The delimiter of each part is a pattern given in argument
 --@param str the string to split
 --@param pat the pattern delimiter
-function split(str, pat)
+function helpers.split(str, pat)
   local t = {}  -- NOTE: use {n = 0} in Lua-5.0
   local fpat = "(.-)" .. pat
   local last_end = 1
@@ -72,7 +72,7 @@ end
 --@param v_margin value used to define top margin and/or bottom margin (tiles are not drawn on the margins)
 --@param width the width of the surface on which we want tiles
 --@param h_margin value used to define left margin and/or right margin.
-function draw_background_tiles(cairo_context, height, v_margin , width, h_margin)
+function helpers.draw_background_tiles(cairo_context, height, v_margin , width, h_margin)
 --tiles: width 4 px height 2px horizontal separator=1 px vertical separator=2px
 --			v_separator
 --		 _______\ /_______
@@ -131,7 +131,7 @@ end
 --@param show_text_centered_on_y a boolean value not mandatory (false by default) if true, y parameter is the coordinate of the middle of the text
 --@param show_text_on_left_of_x a boolean value not mandatory (false by default) if true, x parameter is the right of the text
 --@param show_text_on_bottom_of_y a boolean value not mandatory (false by default) if true, y parameter is the top of the text
-function draw_text_and_background(cairo_context, text, x, y, background_text_color, text_color, show_text_centered_on_x, show_text_centered_on_y, show_text_on_left_of_x, show_text_on_bottom_of_y)
+function helpers.draw_text_and_background(cairo_context, text, x, y, background_text_color, text_color, show_text_centered_on_x, show_text_centered_on_y, show_text_on_left_of_x, show_text_on_bottom_of_y)
     --Text background
     ext=cairo_context:text_extents(text)
     x_modif = 0
@@ -181,7 +181,7 @@ end
 --@param arrow_color the color of the foreground arrow, a string "#rrggbb" or "#rrggbbaa"
 --@param arrow_line_color the color of the outline of the foreground arrow , a string "#rrggbb" or "#rrggbbaa"
 --@param up boolean value if false draw a down arrow, if true draw a up arrow
-function draw_up_down_arrows(cairo_context,x,y_bottom,y_top,value,background_arrow_color, arrow_color, arrow_line_color,up)
+function helpers.draw_up_down_arrows(cairo_context,x,y_bottom,y_top,value,background_arrow_color, arrow_color, arrow_line_color,up)
     if up ~= false then 
       invert = 1
     else
@@ -231,7 +231,7 @@ end
 --@param width the width used to display the left margin, the bar and the right margin
 --@param height the height used to display the top margin, the bar and the bottom margin
 --@param represent a table {background_bar_color = "#rrggbb" or "#rrggbbaa", color = "#rrggbb" or "#rrggbbaa", value =the value used to calculate the height of the bar}
-function draw_vertical_bar(cairo_context,h_margin,v_margin, width,height, represent)
+function helpers.draw_vertical_bar(cairo_context,h_margin,v_margin, width,height, represent)
   x=h_margin
   bar_width=width - 2*h_margin
   bar_height=height - 2*v_margin
@@ -276,7 +276,7 @@ end
 --@param height the height used to display the top margin, the bar and the bottom margin
 --@param represent a table {background_bar_color = "#rrggbb" or "#rrggbbaa", color = "#rrggbb" or "#rrggbbaa", value =the value used to calculate the width of the bar}
 
-function draw_horizontal_bar( cairo_context,h_margin,v_margin, width, height, represent)
+function helpers.draw_horizontal_bar( cairo_context,h_margin,v_margin, width, height, represent)
   x=h_margin
   bar_width=width - 2*h_margin
   bar_height=height - 2*v_margin
@@ -321,7 +321,7 @@ end
 --@param height the height of the rectangle
 --@param color a string "#rrggbb" or "#rrggbbaa" for the color of the rectangle
 --@param rounded_size a float value from 0 to 1 (0 is no rounded corner)
-function draw_rounded_corners_rectangle(cairo_context,x,y,width, height, color, rounded_size)
+function helpers.draw_rounded_corners_rectangle(cairo_context,x,y,width, height, color, rounded_size)
 --if rounded_size =0 it is a classical rectangle (whooooo!)  
   local height = height
   local width = width
@@ -357,7 +357,7 @@ end
 --@param width the width of the rectangle
 --@param height the height of the rectangle
 --@param rounded_size a float value from 0 to 1 (0 is no rounded corner)
-function clip_rounded_corners_rectangle(cairo_context,x,y,width, height, rounded_size)
+function helpers.clip_rounded_corners_rectangle(cairo_context,x,y,width, height, rounded_size)
 --if rounded_size =0 it is a classical rectangle (whooooo!)  
   local height = height
   local width = width
@@ -396,7 +396,7 @@ end
 --@param rounded_size a float value from 0 to 1 (0 is no rounded corner)
 --@param value_to_represent the percent of the max width used to calculate the width of the foreground rectangle
 --@param graph_line_color a string "#rrggbb" or "#rrggbbaa" for the outiline color of the background rectangle
-function draw_rounded_corners_horizontal_graph(cairo_context,x,y,width, height, background_color, graph_color, rounded_size, value_to_represent, graph_line_color)
+function helpers.draw_rounded_corners_horizontal_graph(cairo_context,x,y,width, height, background_color, graph_color, rounded_size, value_to_represent, graph_line_color)
 --if rounded_size =0 it is a classical rectangle (whooooo!)  
   local height = height
   local width = width
@@ -509,7 +509,7 @@ end
 --@param rounded_size a float value from 0 to 1 (0 is no rounded corner)
 --@param value_to_represent the percent of the max height used to calculate the height of the foreground rectangle
 --@param graph_line_color a string "#rrggbb" or "#rrggbbaa" for the outiline color of the background rectangle
-function draw_rounded_corners_vertical_graph(cairo_context,x,y,width, height, background_color, graph_color, rounded_size, value_to_represent, graph_line_color)
+function helpers.draw_rounded_corners_vertical_graph(cairo_context,x,y,width, height, background_color, graph_color, rounded_size, value_to_represent, graph_line_color)
 --if rounded_size =0 it is a classical rectangle (whooooo!)  
   local height = height
   local width = width
@@ -653,7 +653,7 @@ end
 --@param text_color a string "#rrggbb" or "#rrggbbaa" for the color of the text
 --@param font_size define the size of the font
 --@param rounded_size a float value from 0 to 1 (0 is no rounded corner)
-function generate_rounded_rectangle_with_text_in_image(text, padding, background_color, text_color, font_size, rounded_size)
+function helpers.generate_rounded_rectangle_with_text_in_image(text, padding, background_color, text_color, font_size, rounded_size)
   local data={}
   local padding = padding or 2
   --find the height and width of the image:
@@ -686,7 +686,7 @@ end
 --Remove an element from  a table using key.
 --@param hash the table
 --@param key the key to remove
-function hash_remove(hash,key)
+function helpers.hash_remove(hash,key)
   local element = hash[key]
   hash[key] = nil
   return element
@@ -702,7 +702,7 @@ local days_in_m = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 }
 --iT returns a number
 --@param month the month we focus on ( 1 to 12 )
 --@param year a number YYYY used to check if it's a leap year.
-function get_days_in_month(month, year)
+function helpers.get_days_in_month(month, year)
   if month == 2 and is_leap_year(year) then
     return 29
   else
@@ -722,7 +722,7 @@ end
 --First it checks the number of the first week of a month and then it calculate the next six weeks numbers. The value returned is a table of six number.
 --@param month the month
 --@param the year
-function get_ISO8601_weeks_number_of_month(month,year)
+function helpers.get_ISO8601_weeks_number_of_month(month,year)
 
   --the date we focus on
   local my_day=1

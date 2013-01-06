@@ -1,7 +1,8 @@
 --for lua 5.2
 return {
     helpers = require("blingbling.helpers"),
-    classical_graph = require("blingbling.classical_graph")
+    --classical_graph = require("blingbling.classical_graph")
+    --clock = require("blingbling.clock")
 }
 
 --require("blingbling.classical_graph")
@@ -19,5 +20,4 @@ return {
 --require("blingbling.task_warrior")
 --require("blingbling.calendar")
 --require("blingbling.layout")
---require("blingbling.clock")
 ---Graphical widget library for Awesome Windows Manager.

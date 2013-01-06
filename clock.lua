@@ -1,23 +1,19 @@
 local helpers =require("blingbling.helpers")
-local string = require("string")
+local string = string
 local setmetatable = setmetatable
 local ipairs = ipairs
 local math = math
 local table = table
 local type=type
-local cairo = require "oocairo"
-local capi = { image = image, widget = widget, timer=timer }
-local wibox = require("wibox")
-local layout = wibox.layout
----Not ready for now --
-module("blingbling.clock")
+local capi = { timer=timer }
+
+local clock = { mt = {} }
 
 local data = setmetatable({}, { __mode = "k" })
 
 local properties = { "width", "height", "v_margin","h_margin", "background_color", "filled", "filled_color", "tiles", "tiles_color", "c_graph_color", "c_graph_line_color", "show_text", "text_color", "background_text_color" ,"label", "font_size"}
 
 local function update(c_graph)
-  
   local c_graph_surface=cairo.image_surface_create("argb32",data[c_graph].width, data[c_graph].height)
   local c_graph_context = cairo.context_create(c_graph_surface)
   
