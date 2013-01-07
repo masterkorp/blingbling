@@ -1,6 +1,6 @@
 Blingbling:
 ----------
-Blingbling is a graphical widget library for Awesome Windows Manager. Based on oocairo (http://oocairo.naquadah.org/) it was first an attempt to rewrite the graph and progressbar widgets of Awesome WM. The goal of the Blingbling library is to provide more fancy, customisable and easy to setup graphical widgets, popups or signals for Awesome WM.
+Blingbling is a graphical widget library for Awesome Windows Manager. Based on lua-lgi it was first an attempt to rewrite the graph and progressbar widgets of Awesome WM. The goal of the Blingbling library is to provide more fancy, customisable and easy to setup graphical widgets, popups or signals for Awesome WM.
 
 Originally, I have written Blingbling for myself but I share it under the GNU GPL-v2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html). It meens that for this version, I know it works for me but that all. Testers and feedbacks are welcome!
 
@@ -24,21 +24,6 @@ Originally, I have written Blingbling for myself but I share it under the GNU GP
 Version: v1.0
 --------
 Blingbling v1.0 works for awesome 3.4.10 and 3.4.11. The next version (v2.0) will be adapted to the next release of awesome. 
-
-Dependencies
-------------
-Blingbling require oocairo. The address of the website of the project is : http://oocairo.naquadah.org.
-
-Check your package manager to see if you can install an already packaged version of oocairo for your system.
-
-For example on archlinux:
-yaourt -S lua-oocairo-git
-
-If you don't find an already packaged version of oocairo, you can install it from the source:
-
-git clone git://git.naquadah.org/oocairo.git
-cd oocairo*
-and see the readme file for installation instructions.
 
 Installation
 ------------
