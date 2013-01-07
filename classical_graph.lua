@@ -120,9 +120,15 @@ local classical_graph = { mt = {} }
 
 local data = setmetatable({}, { __mode = "k" })
 
-local properties = { "width", "height", "v_margin","h_margin", "background_color", "filled", "filled_color", "rounded_size", "tiles", "tiles_color", "graph_color", "graph_line_color", "show_text", "text_color", "background_text_color" ,"label", "font_size"}
+local properties = { 
+    "width", "height", "v_margin","h_margin", "background_color", "filled", "filled_color", "rounded_size", "tiles", "tiles_color", "graph_color", "graph_line_color", "show_text", "text_color", "background_text_color" ,"label", "font_size"}
 
 function classical_graph.draw(graph, wibox, cr, width, height)
+    local max_value = data[graph].max_value
+    local values = data[graph].values
+
+    local value = data[graph].value
+
     local graph_context = cr
 
     local v_margin = 2 
@@ -300,16 +306,16 @@ end
 --- Add a value to the graph
 -- @param graph The graph.
 -- @param value The value between 0 and 1.
-local function add_value(graph, value)
+local function add_value(graph, value, group)
     if not graph then return end
+
     local value = value or 0
+    local values = data[graph].values
 
     if string.find(value, "nan") then
-	dbg({value})
 	value=0
     end
 
-    local values = data[graph].values
     table.remove(values, #values)
     table.insert(values,1,value)
 

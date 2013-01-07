@@ -10,7 +10,7 @@ return {
     --require("blingbling.volume")
     --require("blingbling.popups")
     --require("blingbling.net")
-    --require("blingbling.system")
+    system = require("blingbling.system"),
     --require("blingbling.udisks_glue")
     --require("blingbling.menu")
     --require("blingbling.task_warrior")
