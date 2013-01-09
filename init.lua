@@ -1,5 +1,6 @@
 --for lua 5.2
 return {
+    constants = require("blingbling.constants"),
     helpers = require("blingbling.helpers"),
     classical_graph = require("blingbling.classical_graph"),
     --require("blingbling.tiled_graph")

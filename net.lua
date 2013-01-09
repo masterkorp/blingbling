@@ -1,22 +1,19 @@
 local awful = require("awful")
 local naughty = require("naughty")
 local helpers =require("blingbling.helpers")
-local string = require("string")
-local io = require("io")
-local os = require("os")
+local string = string
+local io = io
+local os = os
 local setmetatable = setmetatable
 local tonumber = tonumber
 local ipairs = ipairs
 local pairs =pairs
 local math = math
 local type=type
-local cairo = require("oocairo")
-local capi = { image = image, widget = widget, timer =timer }
-local wibox = require("wibox")
-local layout = wibox.layout
+local capi = { timer =timer }
 
 ---Net widget
-module("blingbling.net")
+local net = { mt = {} }
 
 ---Set the interface we monitor:
 --mynet:set_interface(string) --> "eth0"
@@ -97,8 +94,10 @@ local data = setmetatable({}, { __mode = "k" })
 
 local properties = { "interface", "width", "height", "v_margin", "h_margin", "background_color", "filled", "filled_color", "background_graph_color","graph_color", "graph_line_color","show_text", "text_color", "background_text_color" ,"label", "font_size","horizontal"}
 
+
+
+
 local function update(n_graph)
-  
   local interface=""
   if data[n_graph].interface == nil then
     data[n_graph].interface = "eth0"
