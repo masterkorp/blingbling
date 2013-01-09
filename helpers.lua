@@ -138,32 +138,32 @@ function helpers.draw_text_and_background(cairo_context, text, x, y, background_
     --TODO: cairo text_extents will dump lua vm
     --helpers.dbg({ text, text_color, tostring(cairo_context) })
 
-    --ext=cairo_context:text_extents(text)
+    local ext=cairo_context:text_extents(text)
     local x_modif = 0
     local y_modif = 0
 
-    --if show_text_centered_on_x == true then
-    --  x_modif = ((ext.width + ext.x_bearing) / 2) + ext.x_bearing / 2 
-    --  show_text_on_left_of_x = false
-    --else
-    --  if show_text_on_left_of_x == true then
-    --    x_modif = ext.width + 2 *ext.x_bearing     
-    --  else 
-    --    x_modif = x_modif
-    --  end
-    --end
-    --
-    --if show_text_centered_on_y == true then
-    --  y_modif = ((ext.height +ext.y_bearing)/2 ) + ext.y_bearing / 2
-    --  show_text_on_left_of_y = false
-    --else
-    --  if show_text_on_bottom_of_y == true then
-    --    y_modif = ext.height + 2 *ext.y_bearing     
-    --  else 
-    --    y_modif = y_modif
-    --  end
-    --end
-    --cairo_context:rectangle(x + ext.x_bearing - x_modif,y + ext.y_bearing - y_modif,ext.width, ext.height)
+    if show_text_centered_on_x == true then
+      x_modif = ((ext.width + ext.x_bearing) / 2) + ext.x_bearing / 2 
+      show_text_on_left_of_x = false
+    else
+      if show_text_on_left_of_x == true then
+        x_modif = ext.width + 2 *ext.x_bearing     
+      else 
+        x_modif = x_modif
+      end
+    end
+    
+    if show_text_centered_on_y == true then
+      y_modif = ((ext.height +ext.y_bearing)/2 ) + ext.y_bearing / 2
+      show_text_on_left_of_y = false
+    else
+      if show_text_on_bottom_of_y == true then
+        y_modif = ext.height + 2 *ext.y_bearing     
+      else 
+        y_modif = y_modif
+      end
+    end
+    cairo_context:rectangle(x + ext.x_bearing - x_modif,y + ext.y_bearing - y_modif,ext.width, ext.height)
 
     local r,g,b,a=helpers.hexadecimal_to_rgba_percent(background_text_color)
     cairo_context:set_source_rgba(r,g,b,a)
