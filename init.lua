@@ -10,7 +10,7 @@ return {
     --require("blingbling.mpd_visualizer")
     --require("blingbling.volume")
     --require("blingbling.popups")
-    --require("blingbling.net")
+    net = require("blingbling.net"),
     system = require("blingbling.system"),
     --require("blingbling.udisks_glue")
     --require("blingbling.menu")
