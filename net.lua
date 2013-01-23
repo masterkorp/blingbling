@@ -13,8 +13,6 @@ local pairs =pairs
 local math = math
 local type=type
 local capi = { timer =timer }
-local lgi = require("lgi")
-local cairo = lgi.cairo
 
 ---Net widget
 local net = { mt = {} }
@@ -98,13 +96,13 @@ local data = setmetatable({}, { __mode = "k" })
 
 local properties = { "interface", "width", "height", "v_margin", "h_margin", "background_color", "filled", "filled_color", "background_graph_color","graph_color", "graph_line_color","show_text", "text_color", "background_text_color" ,"label", "font_size","horizontal"}
 
-function net.draw(graph, wibox, cr, width, height)
-    local max_value = data[graph].max_value
-    local values = data[graph].values
+function net.draw(n_graph, wibox, cr, width, height)
+    local max_value = data[n_graph].max_value
+    local values = data[n_graph].values
 
-    local value = data[graph].value
+    local value = data[n_graph].value
 
-    local n_graph = cr
+    local n_graph_context = cr
     local interface=""
 
     if data[n_graph].interface == nil then
@@ -121,10 +119,6 @@ function net.draw(graph, wibox, cr, width, height)
     end
   
     if data[n_graph].show_text then
-	--search the good width to display all text and graph and modify the widget width if necessary
-	local n_graph_surface= cairo.ImageSurface.create("argb32",data[n_graph].width, data[n_graph].height)
-	local n_graph_context = cairo.Context.create(n_graph_surface)
-
 	if data[n_graph].font_size then
 	    n_graph_context:set_font_size(data[n_graph].font_size)
 	else
@@ -144,10 +138,6 @@ function net.draw(graph, wibox, cr, width, height)
 	local arrows_separator = 2
 	data[n_graph].width = (arrow_width * 2) + arrows_separator + (2*h_margin)
     end
-  
-    n_graph_surface= nil
-    local n_graph_surface=cairo.ImageSurface.create("argb32",data[n_graph].width, data[n_graph].height)
-    local n_graph_context = cairo.Context.create(n_graph_surface)
   
     --Generate Background (background widget)
     if data[n_graph].background_color then
